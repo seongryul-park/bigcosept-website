@@ -13,32 +13,86 @@
             <p>공지사항을 빠르고 정확하게 안내해드립니다.</p>
         </div>
         <div class="board_write_wrap">
+            
+            <script language="JavaScript">
+                var title;
+                var name;
+                var password;
+
+                function createInput(container, type, placeholder, variable) {
+                    const inputElement = document.createElement('input');
+                    inputElement.setAttribute('type', type);
+                    inputElement.setAttribute('placeholder', placeholder);
+                    container.appendChild(inputElement);
+
+                    // 입력값이 변경될 때마다 변수에 할당
+                    inputElement.addEventListener('input', function() {
+                        variable = inputElement.value;
+                    });
+                }
+
+                function saveInputs() {
+                    // 사용자가 입력한 값
+                    title = document.getElementById('titleInput').value;
+                    name = document.getElementById('writerInput').value;
+                    password = document.getElementById('passwordInput').value;
+
+                    // 객체 생성
+                    const data = {
+                        title: title,
+                        name: name,
+                        password: password
+                    };
+
+                    // 객체를 JSON 문자열로 변환
+                    const jsonData = JSON.stringify(data);
+
+                    
+                }
+            </script>
+
             <div class="board_write">
                 <div class="title">
-                    <dl>
-                        <dt>제목</dt>
-                        <dd><input type="text" placeholder="제목 입력"></dd>
-                    </dl>
+                    <dt>제목</dt>
+                    <dd id="titleInputContainer"></dd>
                 </div>
                 <div class="info">
                     <dl>
                         <dt>글쓴이</dt>
-                        <dd><input type="text" placeholder="글쓴이 입력"></dd>
+                        <dd id="writerInputContainer"></dd>
                     </dl>
                     <dl>
                         <dt>비밀번호</dt>
-                        <dd><input type="password" placeholder="비밀번호 입력"></dd>
+                        <dd id="passwordInputContainer"></dd>
                     </dl>
                 </div>
                 <div class="cont">
-                    <textarea placeholder="내용 입력"></textarea>
+                    <form action="file/">
+                        <input type="file" id="fileInput" />
+                    </form>
                 </div>
             </div>
             <div class="bt_wrap">
-                <a href="view.html" class="on">등록</a>
+                <a href="javascript:void(0)" class="on" onclick="saveInputs()">등록</a>
                 <a href="share_board.html">취소</a>
             </div>
         </div>
     </div>
+    
+    <script>
+        // JavaScript로 입력 요소 동적 생성
+        const titleDdElement = document.getElementById('titleInputContainer');
+        const writerDdElement = document.getElementById('writerInputContainer');
+        const passwordDdElement = document.getElementById('passwordInputContainer');
+
+        // 변수 초기화
+        title = '';
+        name = '';
+        password = '';
+
+        createInput(titleDdElement, 'text', '제목 입력', title);
+        createInput(writerDdElement, 'text', '글쓴이 입력', name);
+        createInput(passwordDdElement, 'password', '비밀번호 입력', password);
+    </script>
 </body>
 </html>
